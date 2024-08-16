@@ -18,7 +18,7 @@ int read(int v, int lo, int ro, int lz, int rz, int* tree){
     if(ro<lz || rz<lo) return 0;
     else if(lz<=lo && ro<=rz) return tree[v];
     return (read(v*2, lo, (lo+ro)/2, lz, rz,  tree) + 
-        read(v*2+1, (lo+ro)/2+1, ro, lz, rz, tree))%11;
+        read(v*2+1, (lo+ro)/2+1, ro, lz, rz, tree)+11)%11;
 }
 
 int main(){
@@ -50,7 +50,12 @@ int main(){
             write(a, -read(1, 0, base-1, a, a, tree2) + ((a%2==1) ? liczba : -liczba),tree2);
         }
         else{
-            cout<< ((liczba%2==0) ? read(1, 0, base-1, a, liczba, tree1) : read(1, 0, base-1, a, liczba, tree2))<<'\n';//<<' '<<read(1, 0, base-1, a, liczba, tree1) <<' '<< read(1, 0, base-1, a, liczba, tree2)<<'\n';
+            int output=read(1, 0, base-1, a, liczba, tree1);
+            if(liczba%2==1)output=(11-output)%11;
+            output=((output+11)%11);
+            cout<<output<<'\n';
+    
         }
     }
 }
+//((liczba%2==0) ?
